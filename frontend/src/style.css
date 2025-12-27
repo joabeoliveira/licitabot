@@ -1,0 +1,187 @@
+/* 
+  LicitaBot Design System - Sleek Dark Edition
+  ----------------------------------------------------
+  Padronização focada em Dark Mode Premium (Fundo Black).
+*/
+
+:root {
+  /* Cores Primárias (Vibrant Blue) */
+  --primary-color: #3B82F6;
+  --primary-50: rgba(59, 130, 246, 0.1);
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+
+  /* Superfícies e Fundos (Dark Palette) */
+  --lb-bg: #0a0a0c;
+  /* Black profundo */
+  --lb-surface: #141417;
+  /* Cartão Dark */
+  --lb-surface-hover: #1c1c21;
+  --lb-border: #26262b;
+  /* Bordas sutis */
+
+  /* Tipografia (Light) */
+  --text-900: #f8fafc;
+  /* Branco/Gelo para títulos */
+  --text-700: #e2e8f0;
+  /* Texto principal */
+  --text-500: #94a3b8;
+  /* Texto secundário/apoio */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Reset Global */
+html {
+  font-size: 14px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--lb-bg);
+  color: var(--text-700);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+/* Layout Wrapper */
+.layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--lb-bg);
+}
+
+.layout-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--lb-bg);
+}
+
+/* --- Padronização de Componentes LicitaBot (LB) --- */
+
+/* 1. Cards Padronizados (Sleek Dark) */
+.lb-card {
+  background: var(--lb-surface);
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--lb-border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.lb-card:hover {
+  border-color: #3b82f6;
+  background: var(--lb-surface-hover);
+}
+
+/* 2. Cabeçalhos de Página */
+.lb-page-header {
+  margin-bottom: 2.5rem;
+}
+
+.lb-page-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--text-900);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.lb-page-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-500);
+  margin-top: 0.5rem;
+}
+
+/* 3. Inputs e Botões customizados */
+.p-inputtext,
+.p-dropdown,
+.p-selectbutton .p-button {
+  background: #1c1c21 !important;
+  border: 1px solid var(--lb-border) !important;
+  color: var(--text-900) !important;
+}
+
+.p-inputtext:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Tags e Severidades no Modo Dark */
+.p-tag.p-tag-success {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+.p-tag.p-tag-info {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+}
+
+.p-tag.p-tag-warning {
+  background: rgba(234, 179, 8, 0.15);
+  color: #facc15;
+}
+
+.p-tag.p-tag-danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+}
+
+/* Customização de Tabelas PrimeVue para o padrão Dark Bot */
+.p-datatable {
+  background: transparent !important;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+  background: #1c1c21 !important;
+  color: var(--text-500) !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid var(--lb-border) !important;
+  padding: 1.25rem 1rem !important;
+}
+
+.p-datatable .p-datatable-tbody>tr {
+  background: var(--lb-surface) !important;
+  color: var(--text-700) !important;
+  border-bottom: 1px solid var(--lb-border) !important;
+  transition: background 0.2s;
+}
+
+.p-datatable .p-datatable-tbody>tr:hover {
+  background: #1c1c21 !important;
+}
+
+.p-datatable .p-datatable-tbody>tr>td {
+  border: none !important;
+}
+
+/* Animações Globais */
+.animate-in {
+  animation: lbFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes lbFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
