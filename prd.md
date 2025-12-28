@@ -63,3 +63,4 @@
 ---
 
 Este PRD fornece uma visão clara e detalhada do sistema de inteligência em licitações, servindo como um guia para as equipes de desenvolvimento e stakeholders envolvidos no projeto. A abordagem técnica e estratégica garantirá a construção de uma solução robusta e escalável, alinhada com as necessidades do mercado.
+

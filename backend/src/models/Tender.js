@@ -11,6 +11,8 @@ const tenderSchema = new mongoose.Schema({
     keywords: [String],
     region: { type: String },
     organ: { type: String },
+    aiScore: { type: Number, default: 0 },
+    aiJustification: { type: String },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 }, { timestamps: true });
 

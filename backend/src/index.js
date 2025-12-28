@@ -6,6 +6,7 @@ import tenderRoutes from './routes/tenderRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import priceRoutes from './routes/priceRoutes.js';
 import certificateRoutes from './routes/certificateRoutes.js';
+import webhookRoutes from './routes/webhookRoutes.js';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/tenders', tenderRoutes);
 app.use('/api/prices', priceRoutes);
 app.use('/api/certificates', certificateRoutes);
+app.use('/api/webhooks', webhookRoutes);
 
 app.get('/', (req, res) => {
     res.json({ message: 'LicitaBot API is running...' });

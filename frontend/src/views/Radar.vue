@@ -6,7 +6,10 @@
             <h1 class="lb-page-title">Radar de <span class="text-primary">Editais</span></h1>
             <p class="lb-page-subtitle">Varredura profunda em bancos de dados governamentais.</p>
         </div>
-        <Button label="Sincronizar Fontes" icon="pi pi-sync" :loading="loading" @click="fetchTenders(1)" class="shadow-6 border-round-xl p-button-lg"></Button>
+        <div class="flex gap-2">
+            <Button label="Sincronizar Fontes" icon="pi pi-sync" severity="secondary" :loading="loading" @click="fetchTenders(1)" class="shadow-4 border-round-xl"></Button>
+            <Button label="Radar com IA" icon="pi pi-bolt" :loading="automationLoading" @click="triggerAutomation" class="shadow-6 border-round-xl p-button-primary pulse-btn"></Button>
+        </div>
     </div>
 
     <!-- Filtros Dark -->
@@ -61,6 +64,9 @@
                 </div>
                 <div class="text-xs text-500 mt-1 uppercase font-black tracking-widest flex align-items-center gap-2">
                     <span class="bg-gray-900 px-2 py-0.5 border-round">CODE: {{ slotProps.data.externalId }}</span>
+                    <Tag v-if="slotProps.data.aiScore > 0" :value="`${slotProps.data.aiScore}% Match`" 
+                        :severity="slotProps.data.aiScore > 70 ? 'success' : (slotProps.data.aiScore > 40 ? 'warning' : 'danger')" 
+                        class="text-xs font-black"></Tag>
                 </div>
             </template>
         </Column>
@@ -106,6 +112,14 @@
                         <label class="block text-xs font-black text-500 uppercase mb-3 tracking-widest">Objeto Completo</label>
                         <div class="bg-gray-900 p-5 border-round-2xl text-gray-300 line-height-4 text-xl border-1 border-gray-800 shadow-inner">
                             {{ selectedTender.description }}
+                        </div>
+                    </div>
+                    <div v-if="selectedTender.aiJustification" class="col-12 mb-5">
+                        <label class="block text-xs font-black text-primary uppercase mb-3 tracking-widest">
+                            <i class="pi pi-bolt mr-1"></i> Análise da Inteligência Artificial
+                        </label>
+                        <div class="bg-primary-900/20 p-5 border-round-2xl text-primary-100 line-height-4 text-xl border-1 border-primary-900/30 shadow-8 italic">
+                            "{{ selectedTender.aiJustification }}"
                         </div>
                     </div>
                     <div class="col-12 md:col-6 mb-4">
@@ -154,6 +168,7 @@ const totalRecords = ref(0);
 const first = ref(0);
 const search = ref('');
 const selectedRegion = ref(null);
+const automationLoading = ref(false);
 
 const regions = ref([
     { label: 'Acre', value: 'AC' }, { label: 'Alagoas', value: 'AL' }, { label: 'Amapá', value: 'AP' },
@@ -188,6 +203,35 @@ const fetchTenders = async (page = 1) => {
     }
 };
 
+const triggerAutomation = async () => {
+    automationLoading.value = true;
+    try {
+        const payload = {
+            query: search.value || 'licitação',
+            ufs: selectedRegion.value || ''
+        };
+        
+        const response = await axios.post(`http://localhost:5000/api/tenders/trigger-radar`, payload);
+        
+        toast.add({ 
+            severity: 'success', 
+            summary: 'IA em Ação', 
+            detail: 'O motor n8n foi acionado. Os resultados aparecerão em breve no seu banco de dados.', 
+            life: 5000 
+        });
+    } catch (error) {
+        console.error('Erro Automação:', error);
+        toast.add({ 
+            severity: 'error', 
+            summary: 'Falha no Motor', 
+            detail: 'Não foi possível disparar o n8n. Verifique se o serviço está ativo.', 
+            life: 5000 
+        });
+    } finally {
+        automationLoading.value = false;
+    }
+};
+
 const onPage = (event) => {
     first.value = event.first;
     fetchTenders(event.page + 1);
@@ -218,4 +262,21 @@ onMounted(() => fetchTenders());
 <style scoped>
 .bg-black-transparent { background: #000000 !important; }
 .shadow-8 { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3); }
+
+.pulse-btn {
+    box-shadow: 0 0 0 0 rgba(110, 64, 255, 0.7);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(110, 64, 255, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(110, 64, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(110, 64, 255, 0);
+    }
+}
 </style>

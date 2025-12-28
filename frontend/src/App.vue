@@ -89,7 +89,8 @@ const menuItems = [
   { label: 'Dashboard', icon: 'pi pi-compass', to: '/' },
   { label: 'Radar de Editais', icon: 'pi pi-bolt', to: '/radar' },
   { label: 'Precificação IA', icon: 'pi pi-money-bill', to: '/precificacao' },
-  { label: 'Compliance Lab', icon: 'pi pi-shield', to: '/conformidade' }
+  { label: 'Compliance Lab', icon: 'pi pi-shield', to: '/conformidade' },
+  { label: 'Automação', icon: 'pi pi-cog', to: '/automacao' }
 ];
 
 const handleLogout = () => {

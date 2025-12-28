@@ -40,6 +40,12 @@ const routes = [
         name: 'Conformidade',
         component: () => import('../views/Conformidade.vue'),
         meta: { requiresAuth: true }
+    },
+    {
+        path: '/automacao',
+        name: 'Automacao',
+        component: () => import('../views/Automacao.vue'),
+        meta: { requiresAuth: true }
     }
 ]
 
